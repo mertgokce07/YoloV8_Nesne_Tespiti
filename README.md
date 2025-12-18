@@ -1,98 +1,27 @@
-# YOLOv8 Object Detection with PyQt5 GUI
+# 👟 Ayakkabı ve Bot Nesne Tespit Modeli
 
-Bu projede, **YOLOv8 (You Only Look Once v8)** nesne tespit algoritması kullanılarak
-**Ayakkabı** ve **Bot** nesnelerinin görüntüler üzerinde tespiti gerçekleştirilmiştir.
-Eğitilen derin öğrenme modeli, **PyQt5** kullanılarak geliştirilen bir masaüstü
-uygulamasına entegre edilmiştir.
+Bu proje, görüntüler üzerinden gerçek zamanlı olarak **Ayakkabı** ve **Bot** tespiti yapmak amacıyla eğitilmiş yüksek doğruluklu bir derin öğrenme modelidir.
 
-Proje kapsamında hem **model eğitimi** hem de **gerçek zamanlıya yakın bir GUI
-uygulaması** geliştirilmiş ve uçtan uca bir nesne tespit sistemi oluşturulmuştur.
+## 📊 Performans Özet Tablosu
 
----
+Model, eğitim sonunda elde edilen verilere göre aşağıdaki metriklerde üstün başarı göstermiştir:
 
-## Proje Amacı
+| Metrik | Değer | Açıklama |
+| :--- | :--- | :--- |
+| **Precision (Kesinlik)** | %98.06 | Doğru tahmin oranı |
+| **Recall (Duyarlılık)** | %96.21 | Nesneleri yakalama oranı |
+| **mAP50** | %97.33 | Genel model doğruluğu |
+| **mAP50-95** | %86.44 | Kutu hassasiyeti ve konum doğruluğu |
+| **Hız (Inference)** | 7.56 ms | Görüntü başına işlem süresi (~130 FPS) |
 
-Bu projenin temel amacı:
+## 🚀 Modelin Güçlü Yönleri
 
-- YOLOv8 kullanarak **kendi veri seti** üzerinde nesne tespiti yapmak
-- Eğitilen modeli bir **masaüstü GUI uygulaması** ile kullanılabilir hale getirmek
-- Bounding box çizimi, sınıflandırma ve nesne sayımı işlemlerini kullanıcıya görsel
-  olarak sunmaktır.
+* **Yüksek Doğruluk:** %98'e varan kesinlik oranıyla yanlış pozitif (yanlış alarm) oranı minimuma indirilmiştir.
+* **Gerçek Zamanlı Çalışma:** Saniyede 130 kare işleme hızıyla canlı video akışlarında sorunsuz çalışabilir.
+* **Dengeli Öğrenme:** Ayakkabı ve Bot sınıfları arasında dengeli bir başarı dağılımı sağlanmıştır.
 
----
+## 📂 Sınıf Bilgileri
+Model aşağıdaki iki sınıfı tanımak üzere özelleştirilmiştir:
+1.  **Ayakkabı** (Shoe)
+2.  **Bot** (Boot)
 
-## Veri Seti
-
-- Veri seti **kendi oluşturulan görüntülerden** meydana gelmektedir.
-- Toplamda **200+ etiketli görüntü** bulunmaktadır.
-- Veri seti **YOLOv8 formatına uygun** olacak şekilde etiketlenmiştir.
-- Etiketleme işlemleri **Roboflow** aracı kullanılarak yapılmıştır.
-- Her görüntüde bir veya birden fazla nesne (Ayakkabi / Bot) bulunabilmektedir.
-
-Veri seti yapısı aşağıdaki gibidir:
-
-dataset/
-├── images/
-│ ├── train/
-│ ├── val/
-│ └── test/
-├── labels/
-│ ├── train/
-│ ├── val/
-│ └── test/
-└── data.yaml
-
-
----
-
-## Model Eğitimi (YOLOv8)
-
-- YOLOv8 modeli **Ultralytics** kütüphanesi kullanılarak eğitilmiştir.
-- Eğitim süreci `yolov8.ipynb` dosyasında detaylı şekilde gösterilmiştir.
-- Eğitim sonunda aşağıdaki metrikler raporlanmıştır:
-  - Precision
-  - Recall
-  - mAP@50
-  - mAP@50–95
-- En iyi sonuç veren model ağırlıkları **best.pt** dosyası olarak kaydedilmiştir.
-
----
-
-## PyQt5 GUI Uygulaması
-
-Geliştirilen masaüstü uygulama aşağıdaki özelliklere sahiptir:
-
-### Arayüz Özellikleri
-- **Original Image Paneli**: Kullanıcının seçtiği görüntü gösterilir.
-- **Tagged Image Paneli**: YOLOv8 tarafından analiz edilen ve üzerinde
-  bounding box çizilmiş görüntü gösterilir.
-
-### Fonksiyonel Özellikler
-- **Select Image**: Bilgisayardan bir görüntü seçme
-- **Test Image**: Seçilen görüntü üzerinde nesne tespiti yapma
-- **Save Image**: Bounding box çizilmiş görüntüyü kaydetme
-- **Nesne Sayımı**: Tespit edilen Ayakkabi ve Bot nesnelerinin sayısının gösterilmesi
-
-GUI uygulaması `gui_app.py` dosyasında yer almaktadır.
-
----
-
-## Dosya Yapısı
-
-├── dataset/
-├── yolov8.ipynb
-├── gui_app.py
-├── best.pt
-└── README.md
-
-Kullanılan Teknolojiler
-
-Python 3.11
-
-YOLOv8 (Ultralytics)
-
-PyQt5
-
-OpenCV
-
-NumPy
